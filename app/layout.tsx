@@ -96,6 +96,7 @@ export default function RootLayout({
           }}
         />
         <script
+          defer
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Necessary for doge easter egg
           dangerouslySetInnerHTML={{
             __html: `(${doge.toString()})();`,
