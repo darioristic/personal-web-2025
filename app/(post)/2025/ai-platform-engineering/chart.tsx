@@ -110,13 +110,13 @@ export function Chart() {
   }, []);
 
   return (
-    <div className="relative my-12 lg:-mx-20 overflow-x-auto">
+    <div className="relative my-12 lg:-mx-20 overflow-x-auto" suppressHydrationWarning>
       <style jsx>{`
         .chart-container :global(svg) {
           outline: none !important;
         }
       `}</style>
-      <div className="chart-container w-full max-w-4xl mx-auto border border-neutral-300 dark:border-neutral-700 p-3 sm:p-6">
+      <div className="chart-container w-full max-w-4xl mx-auto border border-neutral-300 dark:border-neutral-700 p-3 sm:p-6" suppressHydrationWarning>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#333" : "#e5e5e5"} />
