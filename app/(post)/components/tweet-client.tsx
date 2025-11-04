@@ -1,23 +1,29 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { Tweet as TweetType } from "react-tweet/api";
-import {
-  EmbeddedTweet,
-  TweetNotFound,
-  type TweetProps,
-} from "react-tweet";
 import "./tweet.css";
 
 interface TweetClientProps {
   id: string;
-  components?: TweetProps["components"];
   fallback?: ReactNode;
 }
 
-export function TweetClient({ id, components, fallback }: TweetClientProps) {
-  const [tweet, setTweet] = useState<TweetType | null>(null);
+export function TweetClient({ id, fallback }: TweetClientProps) {
+  const [tweet, setTweet] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [EmbeddedTweet, setEmbeddedTweet] = useState<any>(null);
+  const [TweetNotFound, setTweetNotFound] = useState<any>(null);
+
+  useEffect(() => {
+    // Dynamically import react-tweet components only on client side
+    Promise.all([
+      import("react-tweet").then((mod) => mod.EmbeddedTweet),
+      import("react-tweet").then((mod) => mod.TweetNotFound),
+    ]).then(([Embedded, NotFound]) => {
+      setEmbeddedTweet(() => Embedded);
+      setTweetNotFound(() => NotFound);
+    });
+  }, []);
 
   useEffect(() => {
     async function fetchTweet() {
@@ -40,7 +46,7 @@ export function TweetClient({ id, components, fallback }: TweetClientProps) {
     fetchTweet();
   }, [id]);
 
-  if (loading) {
+  if (loading || !EmbeddedTweet || !TweetNotFound) {
     return <>{fallback}</>;
   }
 
@@ -48,5 +54,5 @@ export function TweetClient({ id, components, fallback }: TweetClientProps) {
     return <TweetNotFound />;
   }
 
-  return <EmbeddedTweet tweet={tweet} components={components} />;
+  return <EmbeddedTweet tweet={tweet} />;
 }
