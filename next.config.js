@@ -12,7 +12,7 @@ module.exports = withMDX({
   },
   // Target modern browsers to avoid unnecessary polyfills
   // Modern browsers support ES2022+ features natively
-  transpilePackages: [],
+  transpilePackages: ["react-tweet"],
   images: {
     minimumCacheTTL: 2678400,
     remotePatterns: [
