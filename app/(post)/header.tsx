@@ -84,10 +84,13 @@ function Views({
   mutate: (data?: unknown) => void; 
   defaultValue: string | null; 
 }) {
-  const [views, setViews] = useState(defaultValue);
+  const [views, setViews] = useState<string | null>(null);
   const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
+    // Set initial value from server
+    setViews(defaultValue);
+    
     // Increment view when component mounts
     if (!hasIncrementedRef.current) {
       const url = "/api/view?incr=1&id=" + encodeURIComponent(id);
@@ -100,7 +103,8 @@ function Views({
         .catch(console.error);
       hasIncrementedRef.current = true;
     }
-  }, [id, mutate]);
+  }, [id, mutate, defaultValue]);
 
-  return <span suppressHydrationWarning>{views != null ? `${views} views` : ''}</span>;
+  // Server renders empty, client renders after hydration
+  return <span suppressHydrationWarning>{views != null ? `${views} views` : (defaultValue != null ? `${defaultValue} views` : '')}</span>;
 }

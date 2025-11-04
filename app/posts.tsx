@@ -59,7 +59,7 @@ function List({ posts }) {
                     </span>
                   </span>
 
-                  <span className="text-neutral-700 dark:text-neutral-300 text-xs mt-0.5">
+                  <span className="text-neutral-700 dark:text-neutral-300 text-xs mt-0.5" suppressHydrationWarning>
                     {post.viewsFormatted}
                   </span>
                 </span>
