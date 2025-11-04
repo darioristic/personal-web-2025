@@ -67,7 +67,7 @@ export function Header({ posts }: { posts: Post[] }) {
           <Views
             id={post.id}
             mutate={mutate}
-            defaultValue={post.viewsFormatted}
+            defaultValue={initialPost.viewsFormatted ?? post.viewsFormatted}
           />
         </span>
       </p>
@@ -84,11 +84,13 @@ function Views({
   mutate: (data?: unknown) => void; 
   defaultValue: string | null; 
 }) {
-  // Always use defaultValue initially - server and client must match
-  const [views, setViews] = useState<string | null>(defaultValue);
+  const [views, setViews] = useState<string | null>(null);
   const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
+    // Set initial value first
+    setViews(defaultValue);
+    
     // Increment view when component mounts
     if (!hasIncrementedRef.current) {
       const url = "/api/view?incr=1&id=" + encodeURIComponent(id);
@@ -101,9 +103,9 @@ function Views({
         .catch(console.error);
       hasIncrementedRef.current = true;
     }
-  }, [id, mutate]);
+  }, [id, mutate, defaultValue]);
 
-  // Always render defaultValue on initial render, then update after fetch
+  // Server always renders defaultValue, client renders views after mount
   const displayValue = views ?? defaultValue;
   return <span suppressHydrationWarning>{displayValue != null ? `${displayValue} views` : ''}</span>;
 }
