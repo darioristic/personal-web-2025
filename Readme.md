@@ -192,7 +192,7 @@ MIT © [Dario Ristic](https://darioristic.com)
 
 - Website: [darioristic.com](https://darioristic.com)
 - Twitter: [@darioristic](https://twitter.com/darioristic)
-- LinkedIn: [darioristic](https://linkedin.com/in/darioristic)
+- LinkedIn: [darioristic]https://www.linkedin.com/in/dario-ristic/
 
 ---
 

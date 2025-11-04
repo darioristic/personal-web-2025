@@ -48,7 +48,7 @@ function List({ posts }) {
                   }`}
                 >
                   {firstOfYear && (
-                    <span className="w-10 md:w-14 inline-block self-start shrink-0 text-neutral-900 text-xs dark:text-gray-100 mt-0.5">
+                    <span className="w-10 md:w-14 inline-block self-start shrink-0 text-neutral-700 text-xs dark:text-neutral-300 mt-0.5">
                       {year}
                     </span>
                   )}
@@ -59,7 +59,7 @@ function List({ posts }) {
                     </span>
                   </span>
 
-                  <span className="text-neutral-900 dark:text-gray-100 text-xs mt-0.5" suppressHydrationWarning>
+                  <span className="text-neutral-700 dark:text-neutral-300 text-xs mt-0.5" suppressHydrationWarning>
                     {post.viewsFormatted}
                   </span>
                 </span>

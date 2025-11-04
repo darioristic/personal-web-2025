@@ -1,7 +1,0 @@
-# Target modern browsers to avoid unnecessary polyfills
-# These browsers support ES2022 features natively
-last 2 Chrome versions
-last 2 Firefox versions
-last 2 Safari versions
-last 2 Edge versions
-
