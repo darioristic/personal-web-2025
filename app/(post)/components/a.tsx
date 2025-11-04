@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export function A({ children, className = "", href, rel, ...props }) {
+export function A({ children, className = "", href, rel, ...props }: { 
+  children: any; 
+  className?: string; 
+  href: string; 
+  rel?: string;
+  [key: string]: any;
+}) {
   // Allow custom rel to be overridden
   const getRel = (linkType: string, customRel?: string) => {
     if (customRel) return customRel;
