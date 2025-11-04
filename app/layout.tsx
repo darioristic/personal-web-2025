@@ -83,6 +83,7 @@ export default function RootLayout({
       suppressHydrationWarning={true}
     >
       <head>
+        {/* Critical CSS inlined for above-the-fold content */}
         <style
           dangerouslySetInnerHTML={{
             __html: `

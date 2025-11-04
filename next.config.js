@@ -4,11 +4,15 @@ module.exports = withMDX({
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   experimental: {
     mdxRs: true,
+    optimizeCss: true,
+    optimizePackageImports: ["react-icons", "@vercel/analytics", "@vercel/speed-insights"],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
   swcMinify: true,
+  // Target modern browsers to avoid unnecessary polyfills
+  transpilePackages: [],
   images: {
     minimumCacheTTL: 2678400,
     remotePatterns: [
