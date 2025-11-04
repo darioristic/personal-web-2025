@@ -12,6 +12,7 @@ module.exports = withMDX({
   },
   swcMinify: true,
   // Target modern browsers to avoid unnecessary polyfills
+  // Modern browsers support ES2022+ features natively
   transpilePackages: [],
   images: {
     minimumCacheTTL: 2678400,

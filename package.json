@@ -30,6 +30,7 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.1",
     "autoprefixer": "^10.4.14",
+    "cssnano": "^7.1.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "tailwindcss": "^3.3.1",
@@ -49,5 +50,18 @@
   },
   "prettier": {
     "arrowParens": "avoid"
+  },
+  "browserslist": {
+    "production": [
+      "defaults",
+      "not IE 11",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
