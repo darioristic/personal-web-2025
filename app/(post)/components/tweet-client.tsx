@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Tweet as TweetType } from "react-tweet/api";
 import {
   EmbeddedTweet,
@@ -12,9 +12,10 @@ import "./tweet.css";
 interface TweetClientProps {
   id: string;
   components?: TweetProps["components"];
+  fallback?: ReactNode;
 }
 
-export function TweetClient({ id, components }: TweetClientProps) {
+export function TweetClient({ id, components, fallback }: TweetClientProps) {
   const [tweet, setTweet] = useState<TweetType | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -40,7 +41,7 @@ export function TweetClient({ id, components }: TweetClientProps) {
   }, [id]);
 
   if (loading) {
-    return null; // Suspense will handle the loading state
+    return <>{fallback}</>;
   }
 
   if (!tweet) {
