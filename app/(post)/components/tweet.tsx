@@ -1,7 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { type ReactNode } from "react";
-import { TweetClient } from "./tweet-client";
 import { Caption } from "./caption";
 
 interface TweetArgs {
@@ -15,11 +15,17 @@ function TweetSkeleton() {
   );
 }
 
+// Dynamically import TweetClient with SSR disabled to prevent CSS module issues
+const TweetClient = dynamic(() => import("./tweet-client").then((mod) => mod.TweetClient), {
+  ssr: false,
+  loading: () => <TweetSkeleton />,
+});
+
 export function Tweet({ id, caption }: TweetArgs) {
   return (
     <div className="tweet my-6">
       <div className={`flex justify-center`}>
-        <TweetClient id={id} fallback={<TweetSkeleton />} />
+        <TweetClient id={id} />
       </div>
       {caption && <Caption>{caption}</Caption>}
     </div>
