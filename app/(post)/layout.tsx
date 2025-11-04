@@ -1,4 +1,4 @@
-import { Header } from "./header";
+import { HeaderWrapper } from "./header-wrapper";
 import { getPosts } from "../get-posts";
 import { ArticleStructuredData } from "../components/structured-data";
 
@@ -10,7 +10,7 @@ export default async function Layout({ children }) {
   return (
     <>
       <article className="text-gray-800 dark:text-gray-300 mb-10">
-        <Header posts={posts} />
+        <HeaderWrapper posts={posts} />
 
         {children}
       </article>
