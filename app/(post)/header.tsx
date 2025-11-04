@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 
 import { useSelectedLayoutSegments } from "next/navigation";
 import useSWR from "swr";
@@ -9,6 +10,39 @@ import { ago } from "time-ago";
 import type { Post } from "@/app/get-posts";
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+function ViewsComponent({ 
+  id, 
+  mutate, 
+  defaultValue 
+}: { 
+  id: string; 
+  mutate: (data?: unknown) => void; 
+  defaultValue: string | null; 
+}) {
+  const [views, setViews] = useState<string | null>(defaultValue);
+  const hasIncrementedRef = useRef(false);
+
+  useEffect(() => {
+    // Increment view when component mounts
+    if (!hasIncrementedRef.current) {
+      const url = "/api/view?incr=1&id=" + encodeURIComponent(id);
+      fetch(url)
+        .then(res => res.json())
+        .then(obj => {
+          setViews(obj.viewsFormatted);
+          mutate(obj);
+        })
+        .catch(console.error);
+      hasIncrementedRef.current = true;
+    }
+  }, [id, mutate]);
+
+  return <span>{views != null ? `${views} views` : ''}</span>;
+}
+
+// Load Views component only on client to avoid hydration issues
+const Views = dynamic(() => Promise.resolve(ViewsComponent), { ssr: false });
 
 export function Header({ posts }: { posts: Post[] }) {
   const segments = useSelectedLayoutSegments();
@@ -73,39 +107,4 @@ export function Header({ posts }: { posts: Post[] }) {
       </p>
     </>
   );
-}
-
-function Views({ 
-  id, 
-  mutate, 
-  defaultValue 
-}: { 
-  id: string; 
-  mutate: (data?: unknown) => void; 
-  defaultValue: string | null; 
-}) {
-  const [views, setViews] = useState<string | null>(null);
-  const hasIncrementedRef = useRef(false);
-
-  useEffect(() => {
-    // Set initial value first
-    setViews(defaultValue);
-    
-    // Increment view when component mounts
-    if (!hasIncrementedRef.current) {
-      const url = "/api/view?incr=1&id=" + encodeURIComponent(id);
-      fetch(url)
-        .then(res => res.json())
-        .then(obj => {
-          setViews(obj.viewsFormatted);
-          mutate(obj);
-        })
-        .catch(console.error);
-      hasIncrementedRef.current = true;
-    }
-  }, [id, mutate, defaultValue]);
-
-  // Server always renders defaultValue, client renders views after mount
-  const displayValue = views ?? defaultValue;
-  return <span suppressHydrationWarning>{displayValue != null ? `${displayValue} views` : ''}</span>;
 }
