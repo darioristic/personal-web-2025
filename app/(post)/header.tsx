@@ -84,7 +84,7 @@ function Views({
   mutate: (data?: unknown) => void; 
   defaultValue: string | null; 
 }) {
-  // Start with defaultValue so server and client render the same
+  // Always use defaultValue initially - server and client must match
   const [views, setViews] = useState<string | null>(defaultValue);
   const hasIncrementedRef = useRef(false);
 
@@ -103,5 +103,7 @@ function Views({
     }
   }, [id, mutate]);
 
-  return <span suppressHydrationWarning>{views != null ? `${views} views` : ''}</span>;
+  // Always render defaultValue on initial render, then update after fetch
+  const displayValue = views ?? defaultValue;
+  return <span suppressHydrationWarning>{displayValue != null ? `${displayValue} views` : ''}</span>;
 }

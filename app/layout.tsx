@@ -10,13 +10,17 @@ import { WebsiteStructuredData, PersonStructuredData } from "./components/struct
 
 const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-geist-sans"
+  variable: "--font-geist-sans",
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
-  fallback: ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", "monospace"]
+  fallback: ["ui-monospace", "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", "monospace"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata = {
