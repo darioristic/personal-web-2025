@@ -14,15 +14,11 @@ export const metadata = {
 
 Last week, I had the privilege of delivering a keynote presentation at Lanaco's TechHosted Conference. The presentation focused on a topic revolutionizing enterprise application development: building intelligent applications with OpenShift AI. The enthusiasm and engagement from the audience reinforced what I've long believed—there's an immense appetite for practical knowledge about implementing AI solutions in enterprise environments.
 
-<Figure>
-  <Image src="/images/2024/building-intelligent-applications-with-openshift-ai/techhosted-stage.jpg" alt="TechHosted conference keynote stage presentation featuring Dario Ristic discussing intelligent applications with OpenShift AI" width={3471} height={2281} />
-</Figure>
-
 ## The Vision Behind the Talk on TechHosted
 
 My presentation, "How to Develop Intelligent Applications with OpenShift AI," aimed to bridge the gap between AI possibilities and practical implementation. I wanted to share not just the technical aspects of OpenShift AI, but also the strategic thinking needed to develop and deploy AI-powered applications in real-world scenarios successfully.
 
-The stage setup featured the message: "*The future of intelligent applications is now*", emphasizing how [Red Hat](https://www.redhat.com/) makes AI/ML workloads more productive and faster—a core theme of the presentation.
+The stage setup featured the message: "_The future of intelligent applications is now_", emphasizing how [Red Hat](https://www.redhat.com/) makes AI/ML workloads more productive and faster—a core theme of the presentation.
 
 ## Understanding the Foundation
 
@@ -30,86 +26,96 @@ I began by explaining why OpenShift AI represents a significant advancement in t
 
 ## Key Technical Insights Shared
 
-During the keynote, I walked the audience through several crucial aspects of developing intelligent applications:
+During the keynote, I walked the audience through several crucial aspects of developing intelligent applications, starting with the fundamental architecture that makes OpenShift AI such a powerful platform. The presentation demonstrated how OpenShift AI provides a comprehensive framework that seamlessly integrates every stage of the intelligent application lifecycle.
 
 ### The Architecture of Intelligence
 
-I demonstrated how OpenShift AI provides a comprehensive framework for building intelligent applications, including:
+The architecture of OpenShift AI is designed to support the complete journey from experimentation to production. At its core, the platform offers sophisticated model development workflows using Jupyter notebooks, providing data scientists with familiar tools while maintaining enterprise-grade security and governance. This foundation is complemented by scalable training infrastructure that can handle machine learning models of any complexity, automatically distributing workloads across the cluster to optimize resource utilization.
 
-- Model development workflows using Jupyter notebooks
-- Scalable training infrastructure for machine learning models
-- Robust model serving capabilities with monitoring and versioning
-- Integration patterns with existing applications and data sources
+What truly sets OpenShift AI apart is its robust model serving capabilities, which include comprehensive monitoring and versioning systems. This ensures that models can be deployed with confidence, knowing that every version is tracked and performance metrics are continuously monitored. The platform also excels at integration patterns with existing applications and data sources, making it straightforward to enhance traditional applications with AI capabilities without requiring complete architectural overhauls.
 
 ### Practical Development Approach
 
-We explored a step-by-step approach to developing intelligent applications:
+The practical development journey begins with setting up the development environment using OpenShift AI operators, which dramatically simplifies what would otherwise be a complex infrastructure challenge. Once the foundation is in place, teams can focus on creating and managing data science workflows that align with their specific business needs and technical requirements.
 
-- Setting up the development environment with OpenShift AI operators
-- Creating and managing data science workflows
-- Building and training models using popular frameworks
-- Deploying models as scalable microservices
-- Monitoring and maintaining AI applications in production
+Building and training models becomes a streamlined process using popular frameworks that data scientists already know and trust. The platform abstracts away the complexity of infrastructure management while providing the flexibility needed for sophisticated ML operations. When models are ready for deployment, OpenShift AI enables teams to package them as scalable microservices that can grow with demand, ensuring that intelligent applications remain responsive under varying loads.
+
+Perhaps most critically, the platform provides comprehensive tools for monitoring and maintaining AI applications in production. This includes tracking model performance over time, detecting drift, and managing updates—all essential capabilities for ensuring that intelligent applications continue to deliver value long after their initial deployment.
 
 ## Real-World Implementation
 
 One of the highlights of my presentation was walking through a real-world case study of implementing an intelligent application. We examined how a traditional application could be enhanced with AI capabilities using OpenShift AI, covering everything from initial setup to production deployment.
 
-<YouTube videoId="OXFy59Or1rM" title="Building Intelligent Applications with OpenShift AI - TechHosted Keynote" />
+<YouTube
+  videoId="OXFy59Or1rM"
+  title="Building Intelligent Applications with OpenShift AI - TechHosted Keynote"
+/>
 
 ## The Power of Open Source
 
-A significant portion of the talk focused on the advantages of using an open-source platform like OpenShift AI. We discussed how it enables organizations to:
+A significant portion of the talk focused on the advantages of using an open-source platform like OpenShift AI, and this resonated strongly with the audience. One of the most compelling benefits is the ability to avoid vendor lock-in while still maintaining enterprise-grade capabilities. Organizations can make long-term technology investments without fear of being trapped by proprietary systems or facing unexpected licensing changes that could impact their AI initiatives.
 
-- Avoid vendor lock-in while maintaining enterprise-grade capabilities
-- Leverage the vast ecosystem of open-source AI tools and frameworks
-- Contribute to and benefit from community innovations
-- Maintain control over their AI infrastructure and data
+The open-source nature of OpenShift AI also means organizations can leverage the vast ecosystem of open-source AI tools and frameworks that have become industry standards. This isn't just about using existing tools—it's about participating in a global community where organizations can contribute to and benefit from collective innovations. When companies discover improvements or develop new capabilities, they can share them back with the community, creating a virtuous cycle of innovation.
+
+Perhaps most importantly for enterprises, open source provides the ability to maintain complete control over AI infrastructure and data. In an era where data privacy and sovereignty are paramount concerns, knowing exactly how your AI systems work and where your data resides provides invaluable peace of mind and compliance capabilities.
 
 ## Challenges and Solutions
 
-I addressed common challenges organizations face when implementing AI solutions and how OpenShift AI helps overcome them:
+No discussion about AI implementation would be complete without addressing the real-world challenges that organizations face. During the presentation, I tackled these head-on, showing how OpenShift AI provides practical solutions to common obstacles that often derail AI initiatives.
 
-- Data privacy and security concerns in AI applications
-- Scaling machine learning workloads efficiently
-- Managing the ML lifecycle from development to production
-- Integrating AI capabilities into existing applications
+Data privacy and security concerns in AI applications represent one of the most significant barriers to adoption, especially in regulated industries. OpenShift AI addresses this through its foundation on enterprise Kubernetes, providing robust security controls, encryption, and the ability to keep sensitive data within controlled environments. Organizations can implement AI solutions that meet stringent compliance requirements without compromising on capability or performance.
+
+Scaling machine learning workloads efficiently is another challenge that can make or break AI initiatives. Traditional approaches often require significant manual intervention and infrastructure expertise. OpenShift AI automates much of this complexity, dynamically allocating resources based on workload demands and ensuring that expensive computational resources are used optimally. This not only reduces costs but also accelerates time-to-value for AI projects.
+
+Managing the complete ML lifecycle from development to production has historically been fragmented across multiple tools and platforms. OpenShift AI provides an integrated approach that maintains continuity throughout the entire journey, from initial experimentation through production deployment and ongoing maintenance. This unified experience reduces friction and helps teams move faster while maintaining best practices.
+
+Finally, integrating AI capabilities into existing applications often requires extensive refactoring or architectural changes. OpenShift AI's flexible deployment models and standard interfaces make it possible to add intelligence to existing systems incrementally, allowing organizations to evolve their applications at their own pace while delivering immediate value.
 
 ## Looking to the Future
 
-The presentation concluded with a look at the future of intelligent applications, including:
+The presentation concluded with a forward-looking perspective on where intelligent applications are headed, and the future is genuinely exciting. We're witnessing the emergence of sophisticated AI/ML operations practices that are transforming how organizations manage their intelligent systems at scale. These MLOps patterns are becoming as fundamental to modern software development as DevOps practices became over the past decade.
 
-- Emerging trends in AI/ML operations
-- The evolution of model serving and monitoring
-- Integration with edge computing
-- The growing importance of explainable AI
+Model serving and monitoring continue to evolve rapidly, moving beyond simple deployment to encompass sophisticated observability, automated retraining triggers, and intelligent scaling strategies. The next generation of AI platforms will make it even easier to maintain model health and performance while reducing the operational burden on teams.
+
+Integration with edge computing represents another frontier that will reshape how we think about intelligent applications. As processing moves closer to data sources, we'll see AI capabilities embedded in everything from industrial equipment to retail environments, enabling real-time decision-making with minimal latency. OpenShift AI's architecture is already positioned to support these distributed deployment patterns.
+
+Perhaps most critically, we discussed the growing importance of explainable AI in enterprise contexts. As AI systems make increasingly consequential decisions, the ability to understand and explain those decisions becomes not just desirable but essential. Organizations need to be able to justify AI-driven outcomes to regulators, customers, and stakeholders, and the platforms we build must support this transparency from the ground up.
 
 ## Audience Engagement and Questions
 
-The Q&A session that followed was particularly enlightening. Questions ranged from technical implementation details to strategic considerations:
+The Q&A session that followed was particularly enlightening, revealing the depth of interest and the practical challenges organizations in our region are facing. The questions demonstrated a sophisticated understanding of AI implementation and spanned both technical implementation details and strategic considerations.
 
-- How to handle model versioning and A/B testing
-- Best practices for securing AI workflows
-- Strategies for managing computational resources
-- Approaches to monitoring model drift and performance
+Several attendees asked about handling model versioning and A/B testing in production environments. These questions led to rich discussions about how OpenShift AI supports multiple model versions simultaneously, enabling teams to test new models against established baselines while maintaining service reliability. We explored strategies for gradual rollouts and how to make data-driven decisions about when to promote new models to full production.
+
+Security emerged as a recurring theme, with many participants seeking best practices for securing AI workflows. The conversation touched on everything from protecting training data and model artifacts to securing the APIs that serve predictions. We discussed how OpenShift AI's integration with enterprise security frameworks provides defense-in-depth while maintaining the agility teams need for rapid iteration.
+
+Resource management also generated significant interest, particularly around strategies for managing computational resources efficiently. Organizations are rightly concerned about controlling costs while maintaining performance, and we explored techniques for rightsizing infrastructure, implementing autoscaling policies, and optimizing resource allocation across multiple AI workloads.
+
+Finally, the question of monitoring model drift and performance sparked extensive discussion. This is a critical concern for any organization moving AI into production, and we examined approaches to detecting when models begin to degrade, establishing appropriate alerting thresholds, and implementing automated responses to performance issues.
 
 ## Technical Deep Dive
 
-During the technical portion of the presentation, I demonstrated several key workflows:
+During the technical portion of the presentation, I demonstrated several key workflows through live demonstrations that showed the practical reality of working with OpenShift AI. Rather than relying solely on slides and theory, I wanted the audience to see exactly how the platform works in real-world scenarios.
 
-- Setting up a new OpenShift AI project
-- Implementing an end-to-end ML pipeline
-- Deploying and scaling AI models
-- Monitoring model performance and health
+We started by setting up a new OpenShift AI project from scratch, demonstrating how quickly teams can go from having nothing to having a fully configured environment ready for AI development. The setup process showcased the platform's opinionated yet flexible approach—providing sensible defaults while still allowing customization for specific organizational needs.
+
+The demonstration then progressed to implementing an end-to-end ML pipeline, walking through each stage from data ingestion and preparation through model training and validation. This wasn't a trivial example but rather a realistic scenario that illustrated the kinds of complexities teams face in production environments. The audience could see how OpenShift AI orchestrates these workflows, manages dependencies, and provides visibility into each stage of the pipeline.
+
+Deploying and scaling AI models came next, where I showed how models transition from the training environment to production serving. We explored different deployment strategies, from simple single-model deployments to more sophisticated patterns involving multiple model versions and canary releases. The scaling demonstration highlighted how OpenShift AI automatically adjusts resources based on demand, ensuring models remain responsive during traffic spikes while conserving resources during quieter periods.
+
+The technical deep dive concluded with monitoring model performance and health, arguably one of the most critical aspects of production AI systems. We examined the built-in observability tools, explored how to set up meaningful metrics and alerts, and discussed strategies for responding to performance degradation before it impacts users.
 
 ## Impact and Next Steps
 
-The response to the presentation was overwhelmingly positive, with many attendees expressing interest in starting their journey with OpenShift AI. To support this enthusiasm, I shared resources for getting started:
+The response to the presentation was overwhelmingly positive, with many attendees expressing genuine excitement about starting their journey with OpenShift AI. What struck me most was the shift from theoretical interest to concrete planning—people weren't just curious about AI anymore, they were ready to take action.
 
-- Documentation and learning resources
-- Community channels and support
-- Sample projects and templates
-- Best practices guide
+To support this enthusiasm and help teams get started on solid footing, I shared a curated collection of resources designed to accelerate learning and implementation. The documentation and learning resources I recommended go beyond basic tutorials to include comprehensive guides that address real-world scenarios and common pitfalls. These materials are structured to support both individual learning and team onboarding.
+
+Community channels and support networks play a crucial role in successful AI adoption, and I emphasized the importance of connecting with others on similar journeys. The OpenShift AI community is vibrant and welcoming, with experienced practitioners who are eager to help newcomers navigate challenges and share insights from their own implementations.
+
+For teams ready to move from learning to doing, I highlighted several sample projects and templates that provide solid starting points for common use cases. These aren't toy examples but rather production-ready patterns that teams can adapt to their specific needs, significantly reducing the time from initial exploration to delivering business value.
+
+Finally, I shared a comprehensive best practices guide that distills lessons learned from numerous production implementations. This guide addresses not just technical considerations but also organizational and process aspects that often determine whether AI initiatives succeed or stall.
 
 ## Continuing the Conversation
 
@@ -118,9 +124,3 @@ The conversations that continued after the keynote were equally valuable, with a
 ## Looking Forward
 
 This keynote experience highlighted the growing importance of practical AI implementation knowledge in our region. I'm excited to see how organizations will leverage OpenShift AI to build the next generation of intelligent applications.
-
-## Join the Journey
-
-For those interested in learning more about developing intelligent applications with OpenShift AI, I'll be sharing additional resources and insights on my blog in the coming weeks. Feel free to reach out with questions or connect to discuss your AI implementation journey.
-
-Were you at the conference? I'd love to hear your thoughts and experiences with AI implementation in the comments below. Let's continue this important conversation about the future of intelligent applications.
