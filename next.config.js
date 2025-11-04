@@ -10,7 +10,6 @@ module.exports = withMDX({
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  swcMinify: true,
   // Target modern browsers to avoid unnecessary polyfills
   // Modern browsers support ES2022+ features natively
   transpilePackages: [],
