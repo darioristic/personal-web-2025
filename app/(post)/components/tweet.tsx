@@ -1,14 +1,8 @@
-import { type ReactNode, Suspense } from "react";
+import { type ReactNode } from "react";
 import { Tweet as TweetType, getTweet } from "react-tweet/api";
-import {
-  EmbeddedTweet,
-  TweetNotFound,
-  TweetSkeleton,
-  type TweetProps,
-} from "react-tweet";
 import redis from "@/app/redis";
 import { Caption } from "./caption";
-import "./tweet.css";
+import { TweetClient } from "./tweet-client";
 
 interface TweetArgs {
   id: string;
@@ -38,28 +32,13 @@ async function getAndCacheTweet(id: string): Promise<TweetType | undefined> {
   return cachedTweet;
 }
 
-const TweetContent = async ({ id, components }: TweetProps) => {
-  const tweet = id ? await getAndCacheTweet(id) : undefined;
-
-  if (!tweet) {
-    return <TweetNotFound />;
-  }
-
-  return <EmbeddedTweet tweet={tweet} components={components} />;
-};
-
-export const ReactTweet = (props: TweetProps) => (
-  <Suspense fallback={<TweetSkeleton />}>
-    {/* @ts-ignore: Async components are valid in the app directory */}
-    <TweetContent {...props} />
-  </Suspense>
-);
-
 export async function Tweet({ id, caption }: TweetArgs) {
+  const tweet = await getAndCacheTweet(id);
+
   return (
     <div className="tweet my-6">
       <div className={`flex justify-center`}>
-        <ReactTweet id={id} />
+        <TweetClient tweet={tweet} />
       </div>
       {caption && <Caption>{caption}</Caption>}
     </div>
