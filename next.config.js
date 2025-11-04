@@ -4,7 +4,9 @@ module.exports = withMDX({
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   experimental: {
     mdxRs: true,
+    optimizeCss: true,
   },
+  optimizeFonts: true,
   images: {
     minimumCacheTTL: 2678400,
     remotePatterns: [

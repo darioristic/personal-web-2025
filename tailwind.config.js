@@ -15,4 +15,10 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
+  corePlugins: {
+    // Disable unused Tailwind features to reduce bundle size
+    preflight: true,
+  },
+  // Optimize CSS output
+  important: false,
 };

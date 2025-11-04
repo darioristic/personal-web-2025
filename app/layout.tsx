@@ -79,6 +79,22 @@ export default function RootLayout({
       suppressHydrationWarning={true}
     >
       <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              /* Critical CSS for above-the-fold content */
+              body{margin:0;font-family:var(--font-geist-sans),system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+              .max-w-2xl{max-width:42rem;margin-left:auto;margin-right:auto}
+              .p-6{padding:1.5rem}
+              .pt-3{padding-top:.75rem}
+              .mb-1{margin-bottom:.25rem}
+              .text-2xl{font-size:1.5rem;line-height:2rem}
+              .font-bold{font-weight:700}
+              .dark\\:text-gray-100{color:rgb(243 244 246)}
+              @media(prefers-color-scheme:dark){body{background-color:#1C1C1C;color:#f3f4f6}}
+            `,
+          }}
+        />
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Necessary for doge easter egg
           dangerouslySetInnerHTML={{
