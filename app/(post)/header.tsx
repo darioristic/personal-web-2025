@@ -12,6 +12,8 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export function Header({ posts }: { posts: Post[] }) {
   const segments = useSelectedLayoutSegments();
+  const [isClient, setIsClient] = useState(false);
+  
   // segments can be:
   // date/post
   // lang/date/post
@@ -26,6 +28,10 @@ export function Header({ posts }: { posts: Post[] }) {
       refreshInterval: 5000,
     }
   );
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (initialPost == null) return <></>;
 
@@ -52,12 +58,8 @@ export function Header({ posts }: { posts: Post[] }) {
             <span className="mx-2">|</span>
           </span>
 
-          {/* since we will pre-render the relative time, over time it
-           * will diverge with what the user relative time is, so we suppress the warning.
-           * In practice this is not an issue because we revalidate the entire page over time
-           * and because we will move this to a server component with template.tsx at some point */}
           <span suppressHydrationWarning={true}>
-            {post.date} ({ago(post.date, true)} ago)
+            {post.date} {isClient ? `(${ago(post.date, true)} ago)` : ''}
           </span>
         </span>
 
@@ -100,5 +102,5 @@ function Views({
     }
   }, [id, mutate]);
 
-  return <>{views != null ? <span>{views} views</span> : null}</>;
+  return <span suppressHydrationWarning>{views != null ? `${views} views` : ''}</span>;
 }
