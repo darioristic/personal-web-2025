@@ -1,31 +1,71 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Caption } from "./caption";
 
-interface TweetArgs {
+interface TweetProps {
   id: string;
-  caption: ReactNode;
+  caption?: ReactNode;
 }
 
-function TweetSkeleton() {
-  return (
-    <div className="tweet-skeleton animate-pulse bg-neutral-200 dark:bg-neutral-800 rounded-lg p-4 w-full max-w-[550px] h-[200px]" />
-  );
+declare global {
+  interface Window {
+    twttr?: {
+      widgets: {
+        createTweet: (id: string, element: HTMLElement, options?: any) => Promise<any>;
+      };
+    };
+  }
 }
 
-// Dynamically import TweetClient with SSR disabled to prevent CSS module issues
-const TweetClient = dynamic(() => import("./tweet-client").then((mod) => mod.TweetClient), {
-  ssr: false,
-  loading: () => <TweetSkeleton />,
-});
+export function Tweet({ id, caption }: TweetProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-export function Tweet({ id, caption }: TweetArgs) {
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Load Twitter's embed script
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    script.async = true;
+    script.charset = "utf-8";
+
+    const loadWidget = () => {
+      if (window.twttr?.widgets) {
+        window.twttr.widgets.createTweet(id, containerRef.current!, {
+          theme: "auto",
+        }).catch(() => {
+          // Tweet not found or error
+          if (containerRef.current) {
+            containerRef.current.innerHTML = `
+              <div class="text-center p-8 text-neutral-500 dark:text-neutral-400">
+                <p>Tweet not available</p>
+              </div>
+            `;
+          }
+        });
+      }
+    };
+
+    if (window.twttr) {
+      loadWidget();
+    } else {
+      script.onload = loadWidget;
+      document.body.appendChild(script);
+    }
+
+    return () => {
+      // Cleanup
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
+      }
+    };
+  }, [id]);
+
   return (
     <div className="tweet my-6">
-      <div className={`flex justify-center`}>
-        <TweetClient id={id} />
+      <div className="flex justify-center">
+        <div ref={containerRef} className="w-full max-w-[550px]" />
       </div>
       {caption && <Caption>{caption}</Caption>}
     </div>
