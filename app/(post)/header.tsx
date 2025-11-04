@@ -83,7 +83,7 @@ export function Header({ posts }: { posts: Post[] }) {
         {displayPost.title}
       </h1>
 
-      <p className="font-mono flex text-xs text-neutral-700 dark:text-neutral-300" suppressHydrationWarning>
+      <p className="font-mono flex text-xs text-neutral-900 dark:text-gray-100" suppressHydrationWarning>
         <span className="flex-grow">
           <span className="hidden md:inline">
             <span>
