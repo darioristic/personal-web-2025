@@ -1,5 +1,3 @@
-import Script from 'next/script'
-
 export function YouTube({ videoId, title }: { videoId: string; title?: string }) {
   if (!videoId) return null;
 
@@ -16,14 +14,15 @@ export function YouTube({ videoId, title }: { videoId: string; title?: string })
   };
 
   return (
-    <div className="my-5">
-      <Script
+    <div className="my-5" suppressHydrationWarning>
+      <script
         id={`youtube-structured-data-${videoId}`}
         type="application/ld+json"
+        suppressHydrationWarning
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for JSON-LD structured data
         dangerouslySetInnerHTML={{ __html: JSON.stringify(videoData) }}
       />
-      <div className="relative w-full aspect-video">
+      <div className="relative w-full aspect-video" suppressHydrationWarning>
         <iframe
           src={embedUrl}
           title={title || 'YouTube video player'}
@@ -31,6 +30,7 @@ export function YouTube({ videoId, title }: { videoId: string; title?: string })
           allowFullScreen
           className="absolute top-0 left-0 w-full h-full"
           style={{ border: 0 }}
+          suppressHydrationWarning
         />
       </div>
     </div>
