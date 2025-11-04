@@ -47,6 +47,7 @@ const Views = dynamic(() => Promise.resolve(ViewsComponent), { ssr: false });
 export function Header({ posts }: { posts: Post[] }) {
   const segments = useSelectedLayoutSegments();
   const [isClient, setIsClient] = useState(false);
+  const [mountedPost, setMountedPost] = useState<Post | null>(null);
   
   // segments can be:
   // date/post
@@ -54,8 +55,9 @@ export function Header({ posts }: { posts: Post[] }) {
   const initialPost = posts.find(
     post => post.id === segments[segments.length - 1]
   );
+  
   const { data: post, mutate } = useSWR(
-    `/api/view?id=${initialPost?.id ?? ""}`,
+    initialPost ? `/api/view?id=${initialPost.id}` : null,
     fetcher,
     {
       fallbackData: initialPost,
@@ -65,14 +67,20 @@ export function Header({ posts }: { posts: Post[] }) {
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    if (initialPost) {
+      setMountedPost(initialPost);
+    }
+  }, [initialPost]);
 
-  if (initialPost == null) return <></>;
+  // Use initialPost for server render, post for client updates
+  const displayPost = mountedPost || initialPost || post;
+
+  if (!displayPost) return <></>;
 
   return (
     <>
       <h1 className="text-2xl font-bold mb-1 text-neutral-900 dark:text-gray-100">
-        {post.title}
+        {displayPost.title}
       </h1>
 
       <p className="font-mono flex text-xs text-neutral-700 dark:text-neutral-300" suppressHydrationWarning>
@@ -93,16 +101,20 @@ export function Header({ posts }: { posts: Post[] }) {
           </span>
 
           <span suppressHydrationWarning>
-            {post.date} {isClient ? `(${ago(post.date, true)} ago)` : ''}
+            {displayPost.date} {isClient ? `(${ago(displayPost.date, true)} ago)` : ''}
           </span>
         </span>
 
         <span className="pr-1.5" suppressHydrationWarning>
-          <Views
-            id={post.id}
-            mutate={mutate}
-            defaultValue={initialPost.viewsFormatted ?? post.viewsFormatted}
-          />
+          {isClient && post ? (
+            <Views
+              id={post.id}
+              mutate={mutate}
+              defaultValue={initialPost?.viewsFormatted ?? post.viewsFormatted ?? null}
+            />
+          ) : (
+            <span>{initialPost?.viewsFormatted ?? '0 views'}</span>
+          )}
         </span>
       </p>
     </>
