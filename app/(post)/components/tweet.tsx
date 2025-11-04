@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Tweet as TweetType, getTweet } from "react-tweet/api";
+import type { Tweet as TweetType } from "react-tweet/api";
 import redis from "@/app/redis";
 import { Caption } from "./caption";
 import { TweetClient } from "./tweet-client";
@@ -10,6 +10,9 @@ interface TweetArgs {
 }
 
 async function getAndCacheTweet(id: string): Promise<TweetType | undefined> {
+  // Dynamically import getTweet to avoid CSS module issues in Server Components
+  const { getTweet } = await import("react-tweet/api");
+
   // we first prioritize getting a fresh tweet
   try {
     const tweet = await getTweet(id);
