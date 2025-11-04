@@ -75,7 +75,7 @@ export function Header({ posts }: { posts: Post[] }) {
         {post.title}
       </h1>
 
-      <p className="font-mono flex text-xs text-neutral-700 dark:text-neutral-300">
+      <p className="font-mono flex text-xs text-neutral-700 dark:text-neutral-300" suppressHydrationWarning>
         <span className="flex-grow">
           <span className="hidden md:inline">
             <span>
@@ -92,12 +92,12 @@ export function Header({ posts }: { posts: Post[] }) {
             <span className="mx-2">|</span>
           </span>
 
-          <span suppressHydrationWarning={true}>
+          <span suppressHydrationWarning>
             {post.date} {isClient ? `(${ago(post.date, true)} ago)` : ''}
           </span>
         </span>
 
-        <span className="pr-1.5">
+        <span className="pr-1.5" suppressHydrationWarning>
           <Views
             id={post.id}
             mutate={mutate}
