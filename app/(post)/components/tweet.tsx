@@ -1,71 +1,65 @@
-"use client";
-
-import { useEffect, useRef, type ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
+import { Tweet as TweetType, getTweet } from "react-tweet/api";
+import {
+  EmbeddedTweet,
+  TweetNotFound,
+  TweetSkeleton,
+  type TweetProps,
+} from "react-tweet";
+import redis from "@/app/redis";
 import { Caption } from "./caption";
+import "./tweet.css";
 
-interface TweetProps {
+interface TweetArgs {
   id: string;
-  caption?: ReactNode;
+  caption: ReactNode;
 }
 
-declare global {
-  interface Window {
-    twttr?: {
-      widgets: {
-        createTweet: (id: string, element: HTMLElement, options?: any) => Promise<any>;
-      };
-    };
-  }
-}
+async function getAndCacheTweet(id: string): Promise<TweetType | undefined> {
+  // we first prioritize getting a fresh tweet
+  try {
+    const tweet = await getTweet(id);
 
-export function Tweet({ id, caption }: TweetProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Load Twitter's embed script
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    script.charset = "utf-8";
-
-    const loadWidget = () => {
-      if (window.twttr?.widgets) {
-        window.twttr.widgets.createTweet(id, containerRef.current!, {
-          theme: "auto",
-        }).catch(() => {
-          // Tweet not found or error
-          if (containerRef.current) {
-            containerRef.current.innerHTML = `
-              <div class="text-center p-8 text-neutral-500 dark:text-neutral-400">
-                <p>Tweet not available</p>
-              </div>
-            `;
-          }
-        });
-      }
-    };
-
-    if (window.twttr) {
-      loadWidget();
-    } else {
-      script.onload = loadWidget;
-      document.body.appendChild(script);
+    // @ts-ignore
+    if (tweet && !tweet.tombstone) {
+      // we populate the cache if we have a fresh tweet
+      await redis.set(`tweet:${id}`, tweet);
+      return tweet;
     }
+  } catch (error) {
+    console.error("tweet fetch error", error);
+  }
 
-    return () => {
-      // Cleanup
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
-      }
-    };
-  }, [id]);
+  const cachedTweet = await redis.get(`tweet:${id}`) as TweetType | null;
 
+  // @ts-ignore
+  if (!cachedTweet || cachedTweet.tombstone) return undefined;
+
+  return cachedTweet;
+}
+
+const TweetContent = async ({ id, components }: TweetProps) => {
+  const tweet = id ? await getAndCacheTweet(id) : undefined;
+
+  if (!tweet) {
+    return <TweetNotFound />;
+  }
+
+  return <EmbeddedTweet tweet={tweet} components={components} />;
+};
+
+export const ReactTweet = (props: TweetProps) => (
+  <Suspense fallback={<TweetSkeleton />}>
+    {/* @ts-ignore: Async components are valid in the app directory */}
+    <TweetContent {...props} />
+  </Suspense>
+);
+
+export async function Tweet({ id, caption }: TweetArgs) {
   return (
     <div className="tweet my-6">
-      <div className="flex justify-center">
-        <div ref={containerRef} className="w-full max-w-[550px]" />
+      <div className={`flex justify-center`}>
+        <ReactTweet id={id} />
       </div>
       {caption && <Caption>{caption}</Caption>}
     </div>
