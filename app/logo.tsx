@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 export function Logo() {
   const pathname = usePathname();
   return (
-    <span className="text-md md:text-lg whitespace-nowrap font-bold">
+    <span className="text-md md:text-lg whitespace-nowrap font-bold text-neutral-900 dark:text-gray-100">
       {pathname === "/" ? (
         <span className="cursor-default pr-2">Dario Ristic</span>
       ) : (
