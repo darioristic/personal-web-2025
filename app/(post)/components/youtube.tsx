@@ -15,7 +15,7 @@ export function YouTube({ videoId, title, ...props }: any) {
   } : null;
 
   return (
-    <span className="block my-5">
+    <div className="my-5">
       {videoData && (
         <Script
           id={`youtube-structured-data-${videoId}`}
@@ -24,7 +24,21 @@ export function YouTube({ videoId, title, ...props }: any) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(videoData) }}
         />
       )}
-      <YT width="100%" videoId={videoId} {...props} />
-    </span>
+      <div className="relative w-full aspect-video">
+        <YT 
+          videoId={videoId}
+          className="absolute top-0 left-0 w-full h-full"
+          iframeClassName="w-full h-full"
+          opts={{
+            width: '100%',
+            height: '100%',
+            playerVars: {
+              modestbranding: 1,
+            },
+          }}
+          {...props} 
+        />
+      </div>
+    </div>
   );
 }
