@@ -1,5 +1,4 @@
 import { type ReactNode } from "react";
-import type { Tweet as TweetType } from "react-tweet/api";
 import redis from "@/app/redis";
 import { Caption } from "./caption";
 import { TweetClient } from "./tweet-client";
@@ -9,7 +8,7 @@ interface TweetArgs {
   caption: ReactNode;
 }
 
-async function getAndCacheTweet(id: string): Promise<TweetType | undefined> {
+async function getAndCacheTweet(id: string): Promise<any> {
   // Dynamically import getTweet to avoid CSS module issues in Server Components
   const { getTweet } = await import("react-tweet/api");
 
@@ -27,7 +26,7 @@ async function getAndCacheTweet(id: string): Promise<TweetType | undefined> {
     console.error("tweet fetch error", error);
   }
 
-  const cachedTweet = await redis.get(`tweet:${id}`) as TweetType | null;
+  const cachedTweet = await redis.get(`tweet:${id}`);
 
   // @ts-ignore
   if (!cachedTweet || cachedTweet.tombstone) return undefined;
