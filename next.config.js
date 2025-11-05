@@ -8,7 +8,6 @@ module.exports = withMDX({
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  swcMinify: true,
   images: {
     minimumCacheTTL: 2678400,
     remotePatterns: [
